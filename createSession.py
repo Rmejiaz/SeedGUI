@@ -24,7 +24,7 @@ class CreateSession(QWidget):
     def session_created(self):
 
         self.sessionInfo['Nombre'] = self.createSessionMain.lineEditNombre.text()
-        self.sessionInfo['Parametros'] = self.createSessionMain.lineEditParametros.text()
+        self.sessionInfo['Parametros'] = self.createSessionMain.lineEditParams.text()
         self.sessionInfo['Cantidad'] = self.createSessionMain.lineEditCantidad.text()
         self.sessionInfo['Duracion'] = self.createSessionMain.lineEditDuracion.text()
         self.sessionInfo['Frecuencia'] = self.createSessionMain.lineEditFrecuencia.text()

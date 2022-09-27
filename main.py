@@ -1,10 +1,16 @@
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile, QIODevice
+from PySide6.QtCore import QFile, QIODevice, QThread, QTimer, QSize
 import sys
 import os
 from createSession import CreateSession
+import cv2
+from PySide6.QtGui import QImage, QPixmap
+
+
+
+
 
 
 
@@ -16,6 +22,13 @@ class MainWindow(QMainWindow):
         self.main.showNormal()
         self.main.actionNuevo_Experimento.triggered.connect(lambda evt: self.create_session())
         
+        
+
+        #Camera and video setup
+        self.video_size = QSize(640, 480)
+        self.setup_camera()
+        
+        # Session info
 
         self.sessionInfo = {'Nombre': None, 'Parametros': None, 'Cantidad': None, 'Duracion': None, 'Frecuencia':None}
 
@@ -26,6 +39,32 @@ class MainWindow(QMainWindow):
 
 
         # self.main.labelNombre.setText(self.session.sessionName)
+
+
+
+
+    def setup_camera(self):
+        """Initialize camera.
+        """
+        self.capture = cv2.VideoCapture(0)
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_size.width())
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.video_size.height())
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.display_video_stream)
+        self.timer.start(30)
+
+    def display_video_stream(self):
+        """Read frame from camera and repaint QLabel widget.
+        """
+        _, frame = self.capture.read()
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = cv2.flip(frame, 1)
+        image = QImage(frame, frame.shape[1], frame.shape[0], 
+                       frame.strides[0], QImage.Format_RGB888)
+        self.main.videoLabel.setPixmap(QPixmap.fromImage(image))
+
+
 
 
 if __name__ == "__main__":
