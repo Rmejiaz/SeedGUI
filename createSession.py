@@ -26,11 +26,18 @@ class CreateSession(QWidget):
         self.sessionInfo['Nombre'] = self.createSessionMain.lineEditNombre.text()
         self.sessionInfo['Parametros'] = self.createSessionMain.lineEditParams.text()
         self.sessionInfo['Cantidad'] = self.createSessionMain.lineEditCantidad.text()
-        self.sessionInfo['Duracion'] = self.createSessionMain.lineEditDuracion.text()
-        self.sessionInfo['Frecuencia'] = self.createSessionMain.lineEditFrecuencia.text()
+        self.sessionInfo['Duracion'] = (self.createSessionMain.lineEditDuracion.text(), self.createSessionMain.comboBoxTipoDuracion.currentText())
+        self.sessionInfo['Frecuencia'] = (self.createSessionMain.lineEditFrecuencia.text(), self.createSessionMain.comboBoxTipoFrecuencia.currentText())
+
+
+        self.main.labelNombre.setText(self.sessionInfo['Nombre'])
+
 
 
         self.createSessionMain.close()
+
+
+
 
 if __name__ == '__main__':
 

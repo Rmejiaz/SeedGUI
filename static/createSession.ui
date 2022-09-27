@@ -104,7 +104,7 @@
      <string>Duración:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBoxTipoDuracion">
+   <widget class="QComboBox" name="comboBoxUnidadDuracion">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -157,7 +157,7 @@
      <string>Frecuencia:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBoxTipoFrecuencia">
+   <widget class="QComboBox" name="comboBoxUnidadFrecuencia">
     <property name="geometry">
      <rect>
       <x>430</x>

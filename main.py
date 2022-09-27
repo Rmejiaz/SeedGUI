@@ -7,6 +7,7 @@ import os
 from createSession import CreateSession
 import cv2
 from PySide6.QtGui import QImage, QPixmap
+from datetime import datetime
 
 
 
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow):
         
         # Session info
 
-        self.sessionInfo = {'Nombre': None, 'Parametros': None, 'Cantidad': None, 'Duracion': None, 'Frecuencia':None}
+        self.sessionInfo = {'Nombre': None, 'Parametros': None, 'Cantidad': None, 'Duracion': None, 'Frecuencia':None, 'Inicio':None, 'Fin':None}
 
 
     
@@ -38,7 +39,38 @@ class MainWindow(QMainWindow):
         self.session = CreateSession(self.main,self.sessionInfo)
 
 
-        # self.main.labelNombre.setText(self.session.sessionName)
+    
+
+    def begin_session(self):
+
+        self.sessionInfo['Inicio'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        self.sessionInfo['Duracion'] = self.code_time(self.sessionInfo['Duracion'])
+        self.sessionInfo['Frecuencia'] = self.code_time(self.sessionInfo['Frecuencia'])
+        
+
+
+        self.main.labelInicio(self.sessionInfo['Inicio'])
+        
+
+    def code_time(self, time):
+
+        unit = time[1]
+        time = time[0]
+
+        if unit =='Segundos':
+            return time
+        
+        if unit == 'Minutos':
+            return time*60
+        
+        if unit == 'Horas':
+            return time*3600
+        
+        if unit == 'Dias':
+            return time*3600*24
+        
+        if unit == 'Semanas':
+            return time*3600*24*7
 
 
 
