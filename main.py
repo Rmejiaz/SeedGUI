@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         
 
 
-        self.main.labelInicio(self.sessionInfo['Inicio'])
+        self.main.labelInicio.text(self.sessionInfo['Inicio'])
         
 
     def code_time(self, time):

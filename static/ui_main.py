@@ -17,8 +17,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenu,
-    QMenuBar, QProgressBar, QSizePolicy, QStatusBar,
-    QWidget)
+    QMenuBar, QProgressBar, QPushButton, QSizePolicy,
+    QStatusBar, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -74,6 +74,9 @@ class Ui_MainWindow(object):
         self.labelInicio.setObjectName(u"labelInicio")
         self.labelInicio.setGeometry(QRect(760, 80, 281, 41))
         self.labelInicio.setFont(font)
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(570, 250, 84, 34))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -112,6 +115,7 @@ class Ui_MainWindow(object):
         self.labelTiempoRestante.setText("")
         self.labelFin.setText("")
         self.labelInicio.setText("")
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Iniciar", None))
         self.menuArchivo.setTitle(QCoreApplication.translate("MainWindow", u"Archivo", None))
         self.menuAyuda.setTitle(QCoreApplication.translate("MainWindow", u"Ayuda", None))
     # retranslateUi
