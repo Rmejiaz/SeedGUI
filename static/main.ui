@@ -33,7 +33,7 @@
       <x>80</x>
       <y>450</y>
       <width>911</width>
-      <height>71</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="value">
@@ -184,7 +184,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="iniciarButton">
     <property name="geometry">
      <rect>
       <x>570</x>

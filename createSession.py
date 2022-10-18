@@ -17,24 +17,33 @@ class CreateSession(QWidget):
         self.createSessionMain.show()
 
         QObject().connect(self.createSessionMain.pushButtonCrear, SIGNAL ('clicked()'), self.session_created)
-
+        self.createSessionMain.advertenciaLabel.setVisible(False)
         
 
 
     def session_created(self):
 
-        self.sessionInfo['Nombre'] = self.createSessionMain.lineEditNombre.text()
-        self.sessionInfo['Parametros'] = self.createSessionMain.lineEditParams.text()
-        self.sessionInfo['Cantidad'] = self.createSessionMain.lineEditCantidad.text()
-        self.sessionInfo['Duracion'] = (self.createSessionMain.lineEditDuracion.text(), self.createSessionMain.comboBoxUnidadDuracion.currentText())
-        self.sessionInfo['Frecuencia'] = (self.createSessionMain.lineEditFrecuencia.text(), self.createSessionMain.comboBoxUnidadFrecuencia.currentText())
-
-
-        self.main.labelNombre.setText(self.sessionInfo['Nombre'])
+        if(self.createSessionMain.lineEditNombre.text() == "" or self.createSessionMain.lineEditParams.text() == "" or self.createSessionMain.lineEditDuracion.text() == "" or self.createSessionMain.lineEditFrecuencia.text() == ""):
+            self.createSessionMain.advertenciaLabel.setVisible(True)
+        
+        else:
+            self.createSessionMain.advertenciaLabel.setVisible(True)
 
 
 
-        self.createSessionMain.close()
+
+            self.sessionInfo['Nombre'] = self.createSessionMain.lineEditNombre.text()
+            self.sessionInfo['Parametros'] = self.createSessionMain.lineEditParams.text()
+            self.sessionInfo['Cantidad'] = self.createSessionMain.lineEditCantidad.text()
+            self.sessionInfo['Duracion'] = (self.createSessionMain.lineEditDuracion.text(), self.createSessionMain.comboBoxUnidadDuracion.currentText())
+            self.sessionInfo['Frecuencia'] = (self.createSessionMain.lineEditFrecuencia.text(), self.createSessionMain.comboBoxUnidadFrecuencia.currentText())
+
+
+            self.main.labelNombre.setText(self.sessionInfo['Nombre'])
+
+
+
+            self.createSessionMain.close()
 
 
 

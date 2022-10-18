@@ -1,17 +1,13 @@
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile, QIODevice, QThread, QTimer, QSize
+from PySide6.QtCore import QFile, QIODevice, QThread, QTimer, QSize, QObject, SIGNAL
 import sys
 import os
 from createSession import CreateSession
 import cv2
 from PySide6.QtGui import QImage, QPixmap
-from datetime import datetime
-
-
-
-
+from datetime import datetime, timedelta
 
 
 
@@ -22,11 +18,11 @@ class MainWindow(QMainWindow):
         self.main = QUiLoader().load(os.path.join('static', 'main.ui'))     
         self.main.showNormal()
         self.main.actionNuevo_Experimento.triggered.connect(lambda evt: self.create_session())
-        
+        QObject.connect(self.main.iniciarButton , SIGNAL ('clicked()'), self.begin_session)
         
 
         #Camera and video setup
-        self.video_size = QSize(640, 480)
+        self.video_size = QSize(640, 640)
         self.setup_camera()
         
         # Session info
@@ -43,34 +39,41 @@ class MainWindow(QMainWindow):
 
     def begin_session(self):
 
-        self.sessionInfo['Inicio'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        self.sessionInfo['Inicio'] = datetime.now()
         self.sessionInfo['Duracion'] = self.code_time(self.sessionInfo['Duracion'])
         self.sessionInfo['Frecuencia'] = self.code_time(self.sessionInfo['Frecuencia'])
-        
+        self.sessionInfo['Fin'] = self.sessionInfo['Inicio'] + timedelta(seconds = self.sessionInfo['Duracion'])
 
 
-        self.main.labelInicio.text(self.sessionInfo['Inicio'])
-        
+        self.main.labelInicio.setText(self.sessionInfo['Inicio'].strftime("%d/%m/%Y %H:%M:%S"))
+        self.main.labelFin.setText(self.sessionInfo['Fin'].strftime("%d/%m/%Y %H:%M:%S"))
 
     def code_time(self, time):
+        """Convert a time period to seconds
 
+        Args:
+            time (tuple): tuple containing the time and the unit
+
+        Returns:
+            float: time in seconds
+        """
         unit = time[1]
         time = time[0]
 
         if unit =='Segundos':
-            return time
+            return float(time)
         
         if unit == 'Minutos':
-            return time*60
+            return float(time)*60
         
         if unit == 'Horas':
-            return time*3600
+            return float(time)*3600
         
         if unit == 'Dias':
-            return time*3600*24
+            return float(time)*3600*24
         
         if unit == 'Semanas':
-            return time*3600*24*7
+            return float(time)*3600*24*7
 
 
 
